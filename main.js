@@ -91,7 +91,7 @@ function func_most_words(top_x, adj, words) {
             });
     });
 }
-function func_most_mentioned(top_x,adj){
+function func_most_mentioned(top_x){
     let start_time = new Date();
     MongoClient.connect("mongodb://localhost:27017/"+db_name, function (err, database) {
         if (err) { return console.dir(err); }
@@ -119,7 +119,7 @@ if(db_name != undefined && col_name != undefined){
     func_number_of_users();
     func_number_of_links(10);
     func_number_of_posts(10);
-    func_most_mentioned(10,"good",["good"])
-    func_most_words(5,"bad",["bad","fuck","hell","fat","feminist","shit","asshole","cunt","kill","whore","bieber"])
+    func_most_mentioned(10)
+    func_most_words(5,"bad",["fuck","fat","feminist","shit","asshole","cunt","kill","whore","bieber"])
     func_most_words(5,"good",["good","nice","sweet","love","awesome","blessed","beauty","holy"])
 }
