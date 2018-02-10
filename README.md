@@ -1,5 +1,5 @@
 ## database assignment 2
-# This assumes that you have a mongo database with the twitter data.
+# This assumes that you have a mongo database running with the twitter data.
 
 This repository has just 2 files the package.json and the main.js
 The dependensies are "mongodb"
