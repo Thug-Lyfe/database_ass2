@@ -15,6 +15,7 @@ it then return who uses it the most.
 # How to run?
 1. open cmd (or something equivalent) and go to the code location
 2. run node main.js <db_name> <col_name> 
+
 ex. node main.js db_ass_2 things
 3. replace <db_name> with the name of the database from your mongodb where the twitter halløj is.
 4. replace <col_name> with the name of the collection from your mongodb where the twitter halløj is.
