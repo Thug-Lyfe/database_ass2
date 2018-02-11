@@ -1,0 +1,173 @@
+<html lang="en">
+
+<head>
+  <title>database assignment 2 - Marco Blum</title>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script>
+  <script>
+    angular.module('ass_2', ['ngRoute'])
+      .config(function ($routeProvider, $locationProvider, $httpProvider) {
+        $routeProvider
+          .when('/', {
+            templateUrl: 'public/index.html',
+            controller: 'homeCtrl'
+          })
+          .otherwise({ redirectTo: '/' });
+      }).controller('homeCtrl', function ($scope, $http) {
+        function func_users() {
+          $('#but_users').attr('class', 'btn btn-warning');
+          $http.get("http://localhost:3333/users").then(function (result) {
+            if (result != null) {
+              $scope.data_users = result;
+              $('#but_users').attr('class', 'btn btn-success');
+            }
+          }, function (err) {
+            if (err != null) {
+              $scope.data_users = result;
+              $('#but_users').attr('class', 'btn btn-danger');
+            }
+          })
+        }
+        function func_linkers() {
+          $('#but_linkers').attr('class', 'btn btn-warning');
+          $http.get("http://localhost:3333/linkers/10").then(function (result) {
+            if (result != null) {
+              $scope.data_linkers = result;
+              $('#but_linkers').attr('class', 'btn btn-success');
+            }
+          }, function (err) {
+            if (err != null) {
+              $scope.data_linkers = result;
+              $('#but_linkers').attr('class', 'btn btn-danger');
+            }
+          })
+        }
+        function func_active() {
+          $('#but_active').attr('class', 'btn btn-warning');
+          $http.get("http://localhost:3333/active/10").then(function (result) {
+            if (result != null) {
+              $scope.data_active = result;
+              $('#but_active').attr('class', 'btn btn-success');
+            }
+          }, function (err) {
+            if (err != null) {
+              $scope.data_active = result;
+              $('#but_active').attr('class', 'btn btn-danger');
+            }
+          })
+        }
+        function func_mention() {
+          $('#but_mention').attr('class', 'btn btn-warning');
+          $http.get("http://localhost:3333/mentioned/10").then(function (result) {
+            if (result != null) {
+              $scope.data_mention = result;
+              $('#but_mention').attr('class', 'btn btn-success');
+            }
+          }, function (err) {
+            if (err != null) {
+              $scope.data_mention = err;
+              $('#but_mention').attr('class', 'btn btn-danger');
+            }
+          })
+        }
+        function func_bad() {
+          $('#but_bad').attr('class', 'btn btn-warning');
+          $http.get("http://localhost:3333/words/10/bad/shit,fuck,kill,bieber").then(function (result) {
+            if (result != null) {
+              $scope.data_bad = result;
+              $('#but_bad').attr('class', 'btn btn-success');
+            }
+          }, function (err) {
+            if (err != null) {
+              $scope.data_bad = err;
+              $('#but_bad').attr('class', 'btn btn-danger');
+            }
+          })
+        }
+        function func_good() {
+          $('#but_good').attr('class', 'btn btn-warning');
+          $http.get("http://localhost:3333/words/10/good/love,sweet,flower,tits").then(function (result) {
+            if (result != null) {
+              $scope.data_good = result;
+              $('#but_good').attr('class', 'btn btn-success');
+            }
+          }, function (err) {
+            if (err != null) {
+              $scope.data_good = err;
+              $('#but_good').attr('class', 'btn btn-danger');
+            }
+          })
+        }
+
+        let current = "#users"
+        let runned = [false, false, false, false, false, false]
+        $scope.swap = (swap_to) => {
+          $(current).hide()
+          $(swap_to).show()
+          console.log("swap: ", current, swap_to)
+          current = swap_to
+
+          switch (swap_to) {
+            case '#users': if (!runned[0]) { runned[0] = true; func_users() };
+              break;
+            case '#linkers': if (!runned[1]) { runned[1] = true; func_linkers() };
+              break;
+            case '#active': if (!runned[2]) { runned[2] = true; func_active() };
+              break;
+            case '#mention': if (!runned[3]) { runned[3] = true; func_mention() };
+              break;
+            case '#bad': if (!runned[4]) { runned[4] = true; func_bad() };
+              break;
+            case '#good': if (!runned[5]) { runned[5] = true; func_good() };
+              break;
+          }
+        }
+      })
+  </script>
+</head>
+
+<body class="" ng-app="ass_2" ng-controller="homeCtrl">
+  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group" style="width:100%">
+      <div type="button" id="but_users" class="btn btn-info" ng-click="swap('#users')">number of users</div>
+      <div type="button" id="but_linkers" class="btn btn-info" ng-click="swap('#linkers')">top x who link</div>
+      <div type="button" id="but_active" class="btn btn-info" ng-click="swap('#active')">top x active users</div>
+      <div type="button" id="but_mention" class="btn btn-info" ng-click="swap('#mention')">top x mentioned users</div>
+      <div type="button" id="but_bad" class="btn btn-info" ng-click="swap('#bad')">search bad words</div>
+      <div type="button" id="but_good" class="btn btn-info" ng-click="swap('#good')">search good words</div>
+    </div>
+  </div>
+
+  <br>
+
+  <div>
+    <p class="btn btn-info">blue = idle</p>
+    <p class="btn btn-success">green = loading done and data is ready</p>
+    <p class="btn btn-danger">red = error</p>
+    <p class="btn btn-warning">yellow = loading please wait (multiple can run at the same time)</p>
+  </div>
+  <div id='users'>total number of users: {{data_users.data}}</div>
+  <div style="display:none" id='linkers'>
+    <div ng-repeat="set in data_linkers.data">{{$index+1}}. {{set._id}} with {{set.total}} links to other twitter users </div>
+  </div>
+  <div style="display:none" id='active'>
+    <div ng-repeat="set in data_active.data">{{$index+1}}. {{set._id}} with {{set.total}} tweets tweeted </div>
+</div>
+  <div style="display:none" id='mention'>
+      <div ng-repeat="set in data_mention.data">{{$index+1}}. {{set._id}} with {{set.total}} mentions from other users </div>
+  </div>
+  <div style="display:none" id='bad'>beware it is a slow one
+    this method runs through the database in search of bad words such as shit, fuck and beiber. (it takes about 20-25s)  
+    <div ng-repeat="set in data_bad.data">{{$index+1}}. {{set._id}} with {{set.total}} bad words used in posts </div>
+  </div>
+  <div style="display:none" id='good'>beware it is a slow one
+      this method runs through the database in search of good words such as love, sweet, flower and tits. (it takes about 20-25s)  
+      <div ng-repeat="set in data_good.data">{{$index+1}}. {{set._id}} with {{set.total}} good words used in posts </div>
+    </div>
+</body>
+
+</html>
