@@ -116,15 +116,37 @@
             }
           })
         }
-
+        function func_pooplarity() {
+          $('#but_pooplarity').attr('class', 'btn btn-warning');
+          $http.get("http://localhost:3333/polarity/10/1/150").then(function (result) {
+            if (result != null) {
+              $scope.data_pooplarity = result;
+              $('#but_pooplarity').attr('class', 'btn btn-success');
+            }
+          }, function (err) {
+            if (err != null) {
+              $scope.data_pooplarity = err;
+              $('#but_pooplarity').attr('class', 'btn btn-danger');
+            }
+          })
+        }
+        $scope.click_all = function () {
+          $scope.swap("#users");
+          $scope.swap("#linkers");
+          $scope.swap("#active");
+          $scope.swap("#mention");
+          $scope.swap("#bad");
+          $scope.swap("#good");
+          $scope.swap("#polarity");
+          $scope.swap("#pooplarity");
+        }
         let current = "#users"
-        let runned = [false, false, false, false, false, false,false]
+        let runned = [false, false, false, false, false, false, false, false]
         $scope.swap = (swap_to) => {
           $(current).hide()
           $(swap_to).show()
           console.log("swap: ", current, swap_to)
           current = swap_to
-
           switch (swap_to) {
             case '#users': if (!runned[0]) { runned[0] = true; func_users() };
               break;
@@ -139,6 +161,8 @@
             case '#good': if (!runned[5]) { runned[5] = true; func_good() };
               break;
             case '#polarity': if (!runned[6]) { runned[6] = true; func_polarity() };
+              break;
+            case '#pooplarity': if (!runned[7]) { runned[7] = true; func_pooplarity() };
               break;
           }
         }
@@ -156,36 +180,43 @@
       <div type="button" id="but_bad" class="btn btn-info" ng-click="swap('#bad')">search bad words</div>
       <div type="button" id="but_good" class="btn btn-info" ng-click="swap('#good')">search good words</div>
       <div type="button" id="but_polarity" class="btn btn-info" ng-click="swap('#polarity')">search good polarity</div>
+      <div type="button" id="but_pooplarity" class="btn btn-info" ng-click="swap('#pooplarity')">search bad polarity</div>
     </div>
   </div>
-
   <br>
-
+  <p>The api does have functionality to be runned with parameters.... cba to implement it frontend xD</p>
   <div>
-    <p class="btn btn-info">blue = idle</p>
+    <p class="btn btn-info" ng-click="click_all()">blue = idle (click me to click all buttons :P)</p>
     <p class="btn btn-success">green = loading done and data is ready</p>
     <p class="btn btn-danger">red = error</p>
     <p class="btn btn-warning">yellow = loading please wait (multiple can run at the same time)</p>
   </div>
   <div id='users'>total number of users: {{data_users.data}}</div>
-  <div style="display:none" id='linkers'>
+  <div style="display:none" id='linkers'> The users with highest number of links
     <div ng-repeat="set in data_linkers.data">{{$index+1}}. {{set._id}} with {{set.total}} links to other twitter users </div>
   </div>
-  <div style="display:none" id='active'>
+  <div style="display:none" id='active'>The users with highest number tweets
     <div ng-repeat="set in data_active.data">{{$index+1}}. {{set._id}} with {{set.total}} tweets tweeted </div>
-</div>
-  <div style="display:none" id='mention'>
-      <div ng-repeat="set in data_mention.data">{{$index+1}}. {{set._id}} with {{set.total}} mentions from other users </div>
   </div>
-  <div style="display:none" id='bad'>beware it is a slow one
-    this method runs through the database in search of bad words such as shit, fuck and beiber. (it takes about 20-25s)  
+  <div style="display:none" id='mention'>The users with the highest number of being mentioned
+    <div ng-repeat="set in data_mention.data">{{$index+1}}. {{set._id}} with {{set.total}} mentions from other users </div>
+  </div>
+  <div style="display:none" id='bad'>Beware it is a slow one this method runs through the database in search of bad words such as shit, fuck and beiber. (it
+    takes about 20-25s)
     <div ng-repeat="set in data_bad.data">{{$index+1}}. {{set._id}} with {{set.total}} bad words used in posts </div>
   </div>
-  <div style="display:none" id='good'>beware it is a slow one
-      this method runs through the database in search of good words such as love, sweet, flower and tits. (it takes about 20-25s)  
-      <div ng-repeat="set in data_good.data">{{$index+1}}. {{set._id}} with {{set.total}} good words used in posts </div>
-    </div>
-    <div style="display:none" id='polarity'><div ng-repeat="set in data_polarity.data">{{$index+1}}. {{set._id}} with {{set.avg}} polarity and {{set.total}} posts</div></div>
+  <div style="display:none" id='good'>Beware it is a slow one this method runs through the database in search of good words such as love, sweet, flower and tits.
+    (it takes about 20-25s)
+    <div ng-repeat="set in data_good.data">{{$index+1}}. {{set._id}} with {{set.total}} good words used in posts </div>
+  </div>
+  <div style="display:none" id='polarity'>The users with the highest polarity avg with more than 150 posts
+    <div ng-repeat="set in data_polarity.data">
+      {{$index+1}}. {{set._id}} with {{set.avg}} polarity and {{set.total}} posts</div>
+  </div>
+  <div style="display:none" id='pooplarity'>The users with the lowest polarity avg with more than 150 posts
+    <div ng-repeat="set in data_pooplarity.data">
+      {{$index+1}}. {{set._id}} with {{set.avg}} polarity and {{set.total}} posts</div>
+  </div>
 </body>
 
 </html>
