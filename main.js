@@ -59,7 +59,10 @@ function func_number_of_users(callback) {
         collection.distinct('user').then(function (item) {
             console.log("Total time spent:"+(new Date()-start_time)+"ms","number of users: ", item.length);
             console.log("\n--------------------------------------\n")
-            
+            collection.find().limit(1).toArray((err,item)=>{
+                if(err){console.log(err)}
+                console.log(item)
+            })
             database.close()
             callback(item.length)
         })
@@ -121,7 +124,7 @@ function func_most_words(top_x, adj, words,callback) {
         collection.aggregate([{$addFields:{words:{$split:["$text"," "]}}},
                               {$unwind:"$words"},
                               {$match:{$or:obj}},
-                              {$group:{_id:"$user",total:{$sum:1}}},
+                              {$group:{_id:"$user",total:{$sum:1},avg:{$avg:"$polarity"}}},
                               {$sort:{total:-1}},
                               {$limit:top_x}],
                               {allowDiskUse:true}).toArray((err,item)=>{
@@ -129,7 +132,7 @@ function func_most_words(top_x, adj, words,callback) {
                 else {
                     console.log("Total time spent:"+(new Date()-start_time)+"ms","The top " + top_x + " who says " + adj + " words are:")
                     item.forEach((ele, index) => {
-                        console.log(index + 1 + ". " + ele._id + "  with " + ele.total + " words");
+                        console.log(index + 1 + ". " + ele._id + "  with " + ele.total + " words "+ele.avg);
                     })
                     console.log("\n--------------------------------------\n")
                 }
@@ -163,9 +166,32 @@ function func_most_mentioned(top_x,callback){
             });
     });
 }
+function func_avg_part(top_x,callback){
+    let start_time = new Date();
+    MongoClient.connect("mongodb://localhost:27017/"+db_name, function (err, database) {
+        if (err) { return console.dir(err); }
+        let collection = database.db(db_name).collection(col_name)
+        collection.aggregate([{$group:{_id:"$user",avg:{$avg:"$polarity"},total:{$sum:1}}},
+                              {$match:{total:{$gt:150}}},
+                              {$sort:{avg:1}},
+                              {$limit:top_x}],
+                              {allowDiskUse:true}).toArray((err,item)=>{
+                if (err) { console.log(err) }
+                else {
+                    console.log("Total time spent:"+(new Date()-start_time)+"ms","The top " + top_x + " people who are mentioned:")
+                    item.forEach((ele, index) => {
+                        console.log(index + 1 + ". " + ele._id + "  with being mentioned " + ele.avg + " times "+ele.total);
+                    })
+                    console.log("\n--------------------------------------\n")
+                }
+                database.close()
+                callback(item)
+            });
+    });
+}
 /*
 if(db_name != undefined && col_name != undefined){
-    func_number_of_users();
+    func_avg_part(10)
     func_number_of_links(10);
     func_number_of_posts(10);
     func_most_mentioned(10)
