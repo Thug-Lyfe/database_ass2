@@ -1,7 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 let express = require('express');
 let app = express();
-console.log(__dirname+'/public/index.html')
 app.get('/',(req,res)=>{
     
     res.sendFile(__dirname+'/public/index.html');
@@ -29,6 +28,11 @@ app.get('/mentioned/:x',(req,res)=>{
 app.get('/words/:x/:adj/:words',(req,res)=>{
     console.log("received words: ",req.params.words)
     func_most_words(parseInt(req.params.x),req.params.adj,req.params.words.split(','),(item)=>{
+        res.send(JSON.stringify(item));
+    })
+})
+app.get('/polarity/:x/:adj/:gt',(req,res)=>{
+    func_avg_part(parseInt(req.params.x),parseInt(req.params.adj),parseInt(req.params.gt),(item)=>{
         res.send(JSON.stringify(item));
     })
 })
@@ -166,14 +170,14 @@ function func_most_mentioned(top_x,callback){
             });
     });
 }
-function func_avg_part(top_x,callback){
+function func_avg_part(top_x,adj,gt,callback){
     let start_time = new Date();
     MongoClient.connect("mongodb://localhost:27017/"+db_name, function (err, database) {
         if (err) { return console.dir(err); }
         let collection = database.db(db_name).collection(col_name)
         collection.aggregate([{$group:{_id:"$user",avg:{$avg:"$polarity"},total:{$sum:1}}},
-                              {$match:{total:{$gt:150}}},
-                              {$sort:{avg:1}},
+                              {$match:{total:{$gt:gt}}},
+                              {$sort:{avg:adj}},
                               {$limit:top_x}],
                               {allowDiskUse:true}).toArray((err,item)=>{
                 if (err) { console.log(err) }
@@ -189,12 +193,13 @@ function func_avg_part(top_x,callback){
             });
     });
 }
+
 /*
 if(db_name != undefined && col_name != undefined){
-    func_avg_part(10)
-    func_number_of_links(10);
-    func_number_of_posts(10);
-    func_most_mentioned(10)
-    func_most_words(5,"bad",["fuck","fat","feminist","shit","asshole","cunt","kill","whore","bieber"])
-    func_most_words(5,"good",["good","nice","sweet","love","awesome","blessed","beauty","holy"])
+    func_avg_part(10,()=>{})
+    func_number_of_links(10,()=>{});
+    func_number_of_posts(10,()=>{});
+    func_most_mentioned(10,()=>{})
+    func_most_words(5,"bad",["fuck","fat","feminist","shit","asshole","cunt","kill","whore","bieber"],()=>{})
+    func_most_words(5,"good",["good","nice","sweet","love","awesome","blessed","beauty","holy"],()=>{})
 }*/
