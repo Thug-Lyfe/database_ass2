@@ -10,21 +10,20 @@ it then return who uses it the most.
 3. A function that uses aggregate to get who has tweeted most tweets.
 4. A function that takes a list of words  along with a label either good or bad, it then uses aggregate to run them through the database to see who types good words and who types bad words.
 5. A function that uses aggregate to check if someone is using the @ sign and if it is used is then grouped together with all the other times the same person has been mentioned returning a list of the most mentioned.
-6. lastly the file also has a REST api to get all of it from the frontend (very basic REST and frontend though)
+6. Lastly the file also has a REST api to get all of it from the frontend (very basic REST and frontend though)
 
 # How to run?
-1. open cmd (or something equivalent) and go to the code location
-2. run node main.js <db_name> <col_name> 
+1. Open cmd (or something equivalent) and go to the code location
+2. Run node main.js <db_name> <col_name> 
 
 ex. node main.js db_ass_2 things
 
-3. replace <db_name> with the name of the database from your mongodb where the twitter halløj is.
-4. replace <col_name> with the name of the collection from your mongodb where the twitter halløj is.    
-5. now go to localhost:3333 and do what feels right.
+3. Replace <db_name> with the name of the database from your mongodb where the twitter halløj is.
+4. Replace <col_name> with the name of the collection from your mongodb where the twitter halløj is.    
+5. Now go to localhost:3333 and do what feels right.
+<br><br><br><br><br><br>
 
 
-
-
-6. And what feels right is click the buttons and wait a bit  (they are somewhat explained)
+6. And what feels right is to click the buttons and wait a bit  (they are somewhat explained)
 
 
