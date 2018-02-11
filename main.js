@@ -12,32 +12,28 @@ app.get('/users',(req,res)=>{
     })
 })
 app.get('/linkers/:x',(req,res)=>{
-    func_number_of_links(parseInt(req.param('x')),(item)=>{
+    func_number_of_links(parseInt(req.params.x),(item)=>{
         res.send(JSON.stringify(item));
     })
 })
 app.get('/active/:x',(req,res)=>{
-    func_number_of_posts(parseInt(req.param('x')),(item)=>{
+    func_number_of_posts(parseInt(req.params.x),(item)=>{
         res.send(JSON.stringify(item));
     })
 })
 app.get('/mentioned/:x',(req,res)=>{
-    func_most_mentioned(parseInt(req.param('x')),(item)=>{
+    func_most_mentioned(parseInt(req.params.x),(item)=>{
         res.send(JSON.stringify(item));
     })
 })
 app.get('/words/:x/:adj/:words',(req,res)=>{
-    console.log("received words: ",req.param('words'))
-    func_most_words(parseInt(req.param('x')),req.param('adj'),req.param('words').split(','),(item)=>{
+    console.log("received words: ",req.params.words)
+    func_most_words(parseInt(req.params.x),req.params.adj,req.params.words.split(','),(item)=>{
         res.send(JSON.stringify(item));
     })
 })
 
-let server = app.listen(3333, ()=>{
-    let host = server.address().address;
-    let port = server.address().port;
-    console.log('server running at http://%s:%s',host,port)
-})
+
 
 
 
@@ -49,6 +45,10 @@ if (process.argv.length != 4) {
 else {
     db_name = process.argv[2];
     col_name = process.argv[3];
+    let server = app.listen(3333, ()=>{
+        let port = server.address().port;
+        console.log('server running at http://%s:%s',"localhost",port)
+    })
     console.log("\n------------------running code initiating coffee break--------------------\n")
 }
 function func_number_of_users(callback) {
@@ -115,7 +115,6 @@ function func_most_words(top_x, adj, words,callback) {
     words.forEach((ele) => {
         obj.push({words:{$regex:ele+".",$options:'ism'}})
     });
-    console.log(obj)
     MongoClient.connect("mongodb://localhost:27017/"+db_name, function (err, database) {
         if (err) { return console.dir(err); }
         let collection = database.db(db_name).collection(col_name)
