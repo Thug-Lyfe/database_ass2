@@ -14,16 +14,17 @@ it then return who uses it the most.
 
 # How to run?
 1. Open cmd (or something equivalent) and go to the code location
-2. Run node main.js <db_name> <col_name> 
+2. Run npm install
+3. Run node main.js <db_name> <col_name> 
 
 ex. node main.js db_ass_2 things
 
-3. Replace <db_name> with the name of the database from your mongodb where the twitter halløj is.
-4. Replace <col_name> with the name of the collection from your mongodb where the twitter halløj is.    
-5. Now go to localhost:3333 and do what feels right.
+4. Replace <db_name> with the name of the database from your mongodb where the twitter halløj is.
+5. Replace <col_name> with the name of the collection from your mongodb where the twitter halløj is.    
+6. Now go to localhost:3333 and do what feels right.
 <br><br><br><br><br><br>
 
 
-6. And what feels right is to click the buttons and wait a bit  (they are somewhat explained)
+7. And what feels right is to click the buttons and wait a bit  (they are somewhat explained)
 
 
