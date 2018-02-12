@@ -63,10 +63,6 @@ function func_number_of_users(callback) {
         collection.distinct('user').then(function (item) {
             console.log("Total time spent:"+(new Date()-start_time)+"ms","number of users: ", item.length);
             console.log("\n--------------------------------------\n")
-            collection.find().limit(1).toArray((err,item)=>{
-                if(err){console.log(err)}
-                console.log(item)
-            })
             database.close()
             callback(item.length)
         })
@@ -88,9 +84,10 @@ function func_number_of_links(top_x,callback) {
                         console.log(index + 1 + ". " + ele._id + "  with " + ele.total + " links to other users");
                     })
                 }
+                console.log(item)
                 console.log("\n--------------------------------------\n")
                 database.close();
-                callback(item)
+                console.log(item);callback(item);
             });
     })
 }
@@ -112,7 +109,7 @@ function func_number_of_posts(top_x,callback) {
                 }
                 console.log("\n--------------------------------------\n")
                 database.close();
-                callback(item)
+                console.log(item);callback(item);
             });
     })
 }
@@ -141,7 +138,7 @@ function func_most_words(top_x, adj, words,callback) {
                     console.log("\n--------------------------------------\n")
                 }
                 database.close()
-                callback(item)
+                console.log(item);callback(item);
             });
     });
 }
@@ -166,7 +163,7 @@ function func_most_mentioned(top_x,callback){
                     console.log("\n--------------------------------------\n")
                 }
                 database.close()
-                callback(item)
+                console.log(item);callback(item);
             });
     });
 }
@@ -189,17 +186,20 @@ function func_avg_part(top_x,adj,gt,callback){
                     console.log("\n--------------------------------------\n")
                 }
                 database.close()
-                callback(item)
+                console.log(item);callback(item);
             });
     });
 }
 
 /*
 if(db_name != undefined && col_name != undefined){
-    func_avg_part(10,()=>{})
-    func_number_of_links(10,()=>{});
-    func_number_of_posts(10,()=>{});
-    func_most_mentioned(10,()=>{})
-    func_most_words(5,"bad",["fuck","fat","feminist","shit","asshole","cunt","kill","whore","bieber"],()=>{})
-    func_most_words(5,"good",["good","nice","sweet","love","awesome","blessed","beauty","holy"],()=>{})
-}*/
+    func_avg_part(10,(ele)=>{console.log(ele)})
+    func_number_of_links(10,(ele)=>{console.log(ele)})
+    func_number_of_posts(10,(ele)=>{console.log(ele)})
+    func_most_mentioned(10,(ele)=>{console.log(ele)})
+    func_most_words(5,"bad",["fuck","fat","feminist","shit","asshole","cunt","kill","whore","bieber"],(ele)=>{console.log(ele)})
+    func_most_words(5,"good",["good","nice","sweet","love","awesome","blessed","beauty","holy"],(ele)=>{console.log(ele)})
+    //func_avg_part(10,1,150,(ele)=>{console.log(ele)})
+    func_avg_part(10,1,150,(ele)=>{console.log(ele)})
+}
+*/
