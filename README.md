@@ -3,7 +3,7 @@
 
 This repository has just 3 files the package.json, main.js and the index.html
 The dependensies are "mongodb" and "express"
-The file main.js has 6 functions. and an api for each
+The file main.js has 6 functions. and an api.
 
 | Question | Function | Endpoint | Description |
 |----------|----------|----------|-------------|
