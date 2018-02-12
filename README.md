@@ -4,14 +4,15 @@
 This repository has just 2 files the package.json, main.js and the index.html
 The dependensies are "mongodb" and "express"
 The file main.js has 6 functions.
-|Question|Function|Endpoint|Description|
-| -------- | ---------- | ---------- | --------------------------------------- |
-|1.|func_users(callback)|/users | provides all users through an async function  |
-|2.|func_number_of_posts(top_x,callback)|/active/:x|provides a list the size of top_x of whom has the most posts|
-|3.|func_number_of_links(top_x,callback)|/linkers/:x|provides a list the size of top_x of whom links the most to other twitteres|
-|4.|func_most_mentioned(top_x,callback)|/mentioned/:x|provides a list the size of top_x of whom is mentioned the most|
-|5.|func_most_words(top_x,adj,words,callback)|/words/:x/:adj/:words|provides a list the size of top_x of who says the words in the array words the most|
-|5.|func_avg_part(top_x,adj,gt,callback)|/polarity/:x/:adj/:gt|provides a list the size of top_x of the avg polarity of those who has posted more than "gt" posts, the adj is either 1 or -1 for the lowest or highest rated users|
+
+| Question | Function | Endpoint | Description |
+|----------|----------|----------|-------------|
+| 1. | func_users(callback) | /users | provides all users through an async function  |
+| 2. | func_number_of_posts(top_x,callback) | /active/:x | provides a list the size of top_x of whom has the most posts |
+| 3. | func_number_of_links(top_x,callback) | /linkers/:x | provides a list the size of top_x of whom links the most to other twitteres |
+| 4. | func_most_mentioned(top_x,callback) | /mentioned/:x | provides a list the size of top_x of whom is mentioned the most |
+| 5. | func_most_words(top_x,adj,words,callback) | /words/:x/:adj/:words | provides a list the size of top_x of who says the words in the array words the most |
+| 5. | func_avg_part(top_x,adj,gt,callback) | /polarity/:x/:adj/:gt | provides a list the size of top_x of the avg polarity of those who has posted more than "gt" posts, the adj is either 1 or -1 for the lowest or highest rated users |
 
 
 # How to run?
