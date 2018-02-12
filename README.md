@@ -3,14 +3,15 @@
 
 This repository has just 2 files the package.json, main.js and the index.html
 The dependensies are "mongodb" and "express"
-The file main.js has 5 functions.
+The file main.js has 6 functions.
 1. A function that uses the distinct method to see how many "distinct" users there are.
 2. A function that uses aggregate to get how many @ are being used (it could be for mails but in general most are for the reply halløj on twitter)
 it then return who uses it the most.
 3. A function that uses aggregate to get who has tweeted most tweets.
 4. A function that takes a list of words  along with a label either good or bad, it then uses aggregate to run them through the database to see who types good words and who types bad words.
 5. A function that uses aggregate to check if someone is using the @ sign and if it is used is then grouped together with all the other times the same person has been mentioned returning a list of the most mentioned.
-6. Lastly the file also has a REST api to get all of it from the frontend (very basic REST and frontend though)
+6. A function that uses aggregate to check either those with the highest polarity or the ones with the lowest. It also filters out any who has less than a certain number of posts, to make the results more interesting than 10 people with 0 and 10 with 4.
+7. Lastly the file also has a REST api to get all of it from the frontend (very basic REST and frontend though)
 
 # How to run?
 1. Open cmd (or something equivalent) and go to the code location
