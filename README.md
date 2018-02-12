@@ -1,9 +1,9 @@
 ## database assignment 2
 # This assumes that you have a mongo database running with the twitter data.
 
-This repository has just 2 files the package.json, main.js and the index.html
+This repository has just 3 files the package.json, main.js and the index.html
 The dependensies are "mongodb" and "express"
-The file main.js has 6 functions.
+The file main.js has 6 functions. and an api for each
 
 | Question | Function | Endpoint | Description |
 |----------|----------|----------|-------------|
