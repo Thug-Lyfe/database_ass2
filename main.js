@@ -77,7 +77,7 @@ function func_number_of_links(top_x,callback) {
     MongoClient.connect("mongodb://localhost:27017/"+db_name, function (err, database) {
         if (err) { return console.dir(err); }
         let collection = database.db(db_name).collection(col_name)
-        collection.aggregate([{$group:{_id:"$user",total:{$sum:{$size:{$split:["$text","@"]}}}}},
+        collection.aggregate([{$group:{_id:"$user",total:{$sum:{$subtract:[{$size:{$split:["$text","@"]}},1]}}}},
                               {$sort:{total:-1}},
                               {$limit:top_x}],
                               {allowDiskUse:true}).toArray((err,item)=>{
@@ -184,7 +184,7 @@ function func_avg_part(top_x,adj,gt,callback){
                 else {
                     console.log("Total time spent:"+(new Date()-start_time)+"ms","The top " + top_x + " people who are mentioned:")
                     item.forEach((ele, index) => {
-                        console.log(index + 1 + ". " + ele._id + "  with being mentioned " + ele.avg + " times "+ele.total);
+                        console.log(index + 1 + ". " + ele._id + "  who has a polarity of: " + ele.avg + " and has posted: "+ele.total+" posts");
                     })
                     console.log("\n--------------------------------------\n")
                 }
