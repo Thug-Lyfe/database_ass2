@@ -4,14 +4,15 @@
 This repository has just 2 files the package.json, main.js and the index.html
 The dependensies are "mongodb" and "express"
 The file main.js has 6 functions.
-1. A function that uses the distinct method to see how many "distinct" users there are.
-2. A function that uses aggregate to get how many @ are being used (it could be for mails but in general most are for the reply halløj on twitter)
-it then return who uses it the most.
-3. A function that uses aggregate to get who has tweeted most tweets.
-4. A function that takes a list of words  along with a label either good or bad, it then uses aggregate to run them through the database to see who types good words and who types bad words.
-5. A function that uses aggregate to check if someone is using the @ sign and if it is used is then grouped together with all the other times the same person has been mentioned returning a list of the most mentioned.
-6. A function that uses aggregate to check either those with the highest polarity or the ones with the lowest. It also filters out any who has less than a certain number of posts, to make the results more interesting than 10 people with 0 and 10 with 4.
-7. Lastly the file also has a REST api to get all of it from the frontend (very basic REST and frontend though)
+|Question|Function|Endpoint|Description|
+| -------- | ---------- | ---------- | --------------------------------------- |
+|1.|func_users(callback)|/users | provides all users through an async function  |
+|2.|func_number_of_posts(top_x,callback)|/active/:x|provides a list the size of top_x of whom has the most posts|
+|3.|func_number_of_links(top_x,callback)|/linkers/:x|provides a list the size of top_x of whom links the most to other twitteres|
+|4.|func_most_mentioned(top_x,callback)|/mentioned/:x|provides a list the size of top_x of whom is mentioned the most|
+|5.|func_most_words(top_x,adj,words,callback)|/words/:x/:adj/:words|provides a list the size of top_x of who says the words in the array words the most|
+|5.|func_avg_part(top_x,adj,gt,callback)|/polarity/:x/:adj/:gt|provides a list the size of top_x of the avg polarity of those who has posted more than "gt" posts, the adj is either 1 or -1 for the lowest or highest rated users|
+
 
 # How to run?
 1. Open cmd (or something equivalent) and go to the code location
