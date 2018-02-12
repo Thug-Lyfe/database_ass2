@@ -84,10 +84,10 @@ function func_number_of_links(top_x,callback) {
                         console.log(index + 1 + ". " + ele._id + "  with " + ele.total + " links to other users");
                     })
                 }
-                console.log(item)
+
                 console.log("\n--------------------------------------\n")
                 database.close();
-                console.log(item);callback(item);
+                console.log(JSON.stringify(item));callback(item);
             });
     })
 }
@@ -109,7 +109,7 @@ function func_number_of_posts(top_x,callback) {
                 }
                 console.log("\n--------------------------------------\n")
                 database.close();
-                console.log(item);callback(item);
+                console.log(JSON.stringify(item));callback(item);
             });
     })
 }
@@ -138,7 +138,7 @@ function func_most_words(top_x, adj, words,callback) {
                     console.log("\n--------------------------------------\n")
                 }
                 database.close()
-                console.log(item);callback(item);
+                console.log(JSON.stringify(item));callback(item);
             });
     });
 }
@@ -163,7 +163,7 @@ function func_most_mentioned(top_x,callback){
                     console.log("\n--------------------------------------\n")
                 }
                 database.close()
-                console.log(item);callback(item);
+                console.log(JSON.stringify(item));callback(item);
             });
     });
 }
@@ -186,20 +186,19 @@ function func_avg_part(top_x,adj,gt,callback){
                     console.log("\n--------------------------------------\n")
                 }
                 database.close()
-                console.log(item);callback(item);
+                console.log(JSON.stringify(item));callback(item);
             });
     });
 }
 
-/*
+
 if(db_name != undefined && col_name != undefined){
-    func_avg_part(10,(ele)=>{console.log(ele)})
+    /*func_number_of_users((ele)=>{console.log(ele)})
     func_number_of_links(10,(ele)=>{console.log(ele)})
     func_number_of_posts(10,(ele)=>{console.log(ele)})
     func_most_mentioned(10,(ele)=>{console.log(ele)})
-    func_most_words(5,"bad",["fuck","fat","feminist","shit","asshole","cunt","kill","whore","bieber"],(ele)=>{console.log(ele)})
-    func_most_words(5,"good",["good","nice","sweet","love","awesome","blessed","beauty","holy"],(ele)=>{console.log(ele)})
-    //func_avg_part(10,1,150,(ele)=>{console.log(ele)})
+    func_most_words(5,"bad",["shit","fuck","kill","bieber"],(ele)=>{console.log(ele)})
+    func_most_words(5,"good",["love","sweet","flower","tits"],(ele)=>{console.log(ele)})
     func_avg_part(10,1,150,(ele)=>{console.log(ele)})
+    func_avg_part(10,1,150,(ele)=>{console.log(ele)})*/
 }
-*/
