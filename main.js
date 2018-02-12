@@ -128,7 +128,7 @@ function func_most_words(top_x, adj, words,callback) {
         collection.aggregate([{$addFields:{words:{$split:["$text"," "]}}},
                               {$unwind:"$words"},
                               {$match:{$or:obj}},
-                              {$group:{_id:"$user",total:{$sum:1},avg:{$avg:"$polarity"}}},
+                              {$group:{_id:"$user",total:{$sum:1}}},
                               {$sort:{total:-1}},
                               {$limit:top_x}],
                               {allowDiskUse:true}).toArray((err,item)=>{
@@ -136,7 +136,7 @@ function func_most_words(top_x, adj, words,callback) {
                 else {
                     console.log("Total time spent:"+(new Date()-start_time)+"ms","The top " + top_x + " who says " + adj + " words are:")
                     item.forEach((ele, index) => {
-                        console.log(index + 1 + ". " + ele._id + "  with " + ele.total + " words "+ele.avg);
+                        console.log(index + 1 + ". " + ele._id + "  with " + ele.total + " words ");
                     })
                     console.log("\n--------------------------------------\n")
                 }
