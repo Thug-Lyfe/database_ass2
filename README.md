@@ -8,8 +8,7 @@ The file main.js has 6 functions. and an api.
 | Question | Function | Endpoint | Description |
 |----------|----------|----------|-------------|
 | 1. | func_users(callback) | /users | provides all users through an async function  |
-
-| 2. | func_number_of_links(top_x,callback) | /linkers/:x | provides a list the size of top_x of whom links the most to other twitteres |
+| 2. | func_number_of_links(top_x,callback) | /linkers/:x | provides a list the size of top_x of whom links the most to other twitteres|
 | 3. | func_most_mentioned(top_x,callback) | /mentioned/:x | provides a list the size of top_x of whom is mentioned the most |
 | 4. | func_number_of_posts(top_x,callback) | /active/:x | provides a list the size of top_x of whom has the most posts |
 | 5. | func_most_words(top_x,adj,words,callback) | /words/:x/:adj/:words | provides a list the size of top_x of who says the words in the array words the most |
